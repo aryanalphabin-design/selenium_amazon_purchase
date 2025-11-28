@@ -11,12 +11,19 @@ def driver(request):
     """Provide a maximized Chrome driver and register it on the test node."""
     options = Options()
     # options.add_argument("--start-maximized")
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
     driver = webdriver.Chrome(options=options)
 
-    # expose driver to hooks that run after the test
-    request.node.driver = driver
-    yield driver
+    def teardown():
+        driver.quit()
 
+    # expose driver to hooks that run after the test
+    request.addfinalizer(teardown)
+    return driver
     driver.quit()
 
 
