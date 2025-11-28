@@ -1,0 +1,1 @@
+✓ Test PASSED: test_amazon_purchase_flow

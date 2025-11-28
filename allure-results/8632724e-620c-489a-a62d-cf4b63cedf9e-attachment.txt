@@ -1,0 +1,1 @@
+✓ PASSED: Add to Cart button is visible
